@@ -1,11 +1,18 @@
 import pandas as pd
 import requests
+import sys
 from bs4 import BeautifulSoup as BS
 import re  # Модуль для работы с регулярными выражениями
 from fake_useragent import UserAgent
 import time
 from urllib.parse import unquote
+from pathlib import Path
 
+current_dir = Path(__file__).parent 
+part_file = current_dir / 'part.xlsx'
+part_PL_file = current_dir / 'part_PL.xlsx'
+
+t0 = time.time()
 
 ua = UserAgent()
 
@@ -53,7 +60,7 @@ def parse_page_dexup(url):
     except Exception as e:
         return f"Error: {e}", None, None
 
-
+# Функция для парсинга данных со страницы port3
 
 
 # Функция для очистки артикула (удаление пробелов и символов)
@@ -139,7 +146,7 @@ brand_replacement = {
     "OSR": "OSRAM",
     "ORJ" : "PEUGEOT-CITROEN",
     "PEUGEOT / CITROEN" : "PEUGEOT-CITROEN",
-    "PIE": "PIEBURG",
+    "PIE": "PIERBURG",
     "PUR": "PURFLUX",
     "RAP": "RAPRO",
     "SAC": "SACHS",
@@ -167,10 +174,17 @@ brand_replacement = {
     "YEN": "YENMAK"
 }
 
-# Загрузка Excel файла
-file_path = "C:/GitHub/car_parts_script/part.xlsx"  # Путь к вашему файлу
-print(f"Данные берем из {file_path}")
-df = pd.read_excel(file_path, header=None)  # Читаем файл без заголовков
+try:
+    df = pd.read_excel(part_file, header=None, dtype=object)  # Читаем файл без заголовков. dtype=object решает проблему с dtype в df.at[index, 2] = product_name_dexup
+except FileNotFoundError:
+    print(f"НЕТ ФАЙЛА part в папке {current_dir}\n")
+    sys.exit()  #выход ибо нет файла
+
+total_rows = df.shape[0]
+
+print(f"Данные берем из {part_file}.\nВсего {total_rows} позиций.")
+print("")
+print(f'{"Позиция".ljust(10):7}{"Артикул".ljust(20):15}{"Марка".ljust(20):15}Наименование')
 
 # Проходим по строкам файла и парсим данные
 for index, row in df.iterrows():
@@ -189,7 +203,8 @@ for index, row in df.iterrows():
     
     #Формирование URL и парсинг данных с dexup
     url_dexup = f"https://dexup.ru/parts/{marka}/{art}"
-    print(f"Парсим данные по ссылке: {url_dexup.ljust(50)}", end='')
+    row_index = (str(index) + '/' + str(total_rows)).ljust(10)    #номер позиции
+    print(f'{row_index:7}{art.ljust(20):15}{marka.ljust(20):15}', end='')
     
     # Вызов функции парсинга страницы dexup
     product_name_dexup, mass_dexup, material_dexup = parse_page_dexup(url_dexup)
@@ -200,9 +215,9 @@ for index, row in df.iterrows():
     material_dexup = capitalize_first_letter(material_dexup)
 
     print(product_name_dexup)
-    
+
     # Сохранение данных в соответствующие столбцы
-    df.at[index, 2] = product_name_dexup  # Основное описание с dexup
+    df.at[index, 2] = product_name_dexup # Основное описание с dexup
     df.at[index, 3] = mass_dexup if mass_dexup is not None else float('nan')  # Масса с dexup
     df.at[index, 4] = material_dexup if material_dexup is not None else ""  # Материал с dexup
     df.at[index, 5] = url_dexup  # Ссылка на страницу dexup
@@ -215,7 +230,8 @@ for index, row in df.iterrows():
     time.sleep(1)
 
 # Сохраняем обновленный Excel файл
-output_file = "C:/GitHub/car_parts_script/part_PL.xlsx"  # Путь для сохранения файла
-df.to_excel(output_file, index=False, header=False)
+df.to_excel(part_PL_file, index=False, header=False)
 
-print("Данные успешно сохранены в файл:", output_file)
+print("Данные успешно сохранены в файл:", part_PL_file)
+t1 = time.time()
+print("Процесс занял", round((t1 - t0)/60), "минут(ы)")
