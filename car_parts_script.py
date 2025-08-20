@@ -180,7 +180,7 @@ except FileNotFoundError:
     print(f"НЕТ ФАЙЛА part в папке {current_dir}\n")
     sys.exit()  #выход ибо нет файла
 
-total_rows = df.shape[0]
+total_rows = df.shape[0] - 1
 
 print(f"Данные берем из {part_file}.\nВсего {total_rows} позиций.")
 print("")
@@ -203,8 +203,6 @@ for index, row in df.iterrows():
     
     #Формирование URL и парсинг данных с dexup
     url_dexup = f"https://dexup.ru/parts/{marka}/{art}"
-    row_index = (str(index) + '/' + str(total_rows)).ljust(10)    #номер позиции
-    print(f'{row_index:7}{art.ljust(20):15}{marka.ljust(20):15}', end='')
     
     # Вызов функции парсинга страницы dexup
     product_name_dexup, mass_dexup, material_dexup = parse_page_dexup(url_dexup)
@@ -214,24 +212,25 @@ for index, row in df.iterrows():
     product_name_dexup = capitalize_first_letter(product_name_dexup)
     material_dexup = capitalize_first_letter(material_dexup)
 
-    print(product_name_dexup)
+    'DECODING URL'
+    decoded_marka = unquote(marka)
+
+    row_index = (str(index) + '/' + str(total_rows)).ljust(10)    #номер позиции
+    print(f'{row_index:7}{art.ljust(20):15}{decoded_marka.ljust(20):15}{product_name_dexup}')
 
     # Сохранение данных в соответствующие столбцы
     df.at[index, 2] = product_name_dexup # Основное описание с dexup
     df.at[index, 3] = mass_dexup if mass_dexup is not None else float('nan')  # Масса с dexup
-    df.at[index, 4] = material_dexup if material_dexup is not None else ""  # Материал с dexup
-    df.at[index, 5] = url_dexup  # Ссылка на страницу dexup
-
-    'DECODING URL'
-    decoded_marka = unquote(marka)
-    df.at[index, 6] = decoded_marka	
-
+    df.at[index, 4] = decoded_marka	
+    df.at[index, 5] = material_dexup if material_dexup is not None else ""  # Материал с dexup
+    df.at[index, 6] = url_dexup  # Ссылка на страницу dexup
 
     time.sleep(1)
 
 # Сохраняем обновленный Excel файл
 df.to_excel(part_PL_file, index=False, header=False)
-
+print("")
 print("Данные успешно сохранены в файл:", part_PL_file)
 t1 = time.time()
 print("Процесс занял", round((t1 - t0)/60), "минут(ы)")
+print("")
