@@ -11,8 +11,7 @@ import xlwings as xw   #нужно чтобы достать активный л
 
 
 current_dir = Path(__file__).parent 
-part_file = sys.argv[1]    #второй аргумент (путь к файлу) при запуске скрипта через cmd 
-part_PL_file = sys.argv[1]
+wb_path = sys.argv[1]    #второй аргумент (путь к файлу) при запуске скрипта через cmd 
 first_cell = sys.argv[2]
 first_row = int(sys.argv[3])
 user_row_number = int(sys.argv[4])
@@ -21,8 +20,8 @@ user_column = first_cell.split("$")[1]
 first_cell = f'{user_column}{first_row}'
 last_cell = f'{user_column}{last_row}'
 
-#part_file = current_dir / 'part.xlsx'
-#part_PL_file = current_dir / 'part_PL.xlsx'
+#wb_path = current_dir / 'part.xlsx'
+#wb_path = current_dir / 'part_PL.xlsx'
 
 #print(f'first cell:{first_cell} first row:{first_row} user row number:{user_row_number} last_row:{last_row}')
 
@@ -91,97 +90,90 @@ def capitalize_first_letter(text):
 # Словарь для замены марок
 brand_replacement = {
     "PEUGEOT / CITROEN" : "PEUGEOT%20CITROEN",
-    "PEUGEOTCITROEN" : "PEUGEOT%20CITROEN",
     "AUTOMEGA DELLO" : "AUTOMEGA",
     "MAHLE / KNECHT" : "MAHLE",
+    "PEUGEOTCITROEN" : "PEUGEOT%20CITROEN",
     "AUTOMEGADELLO" : "AUTOMEGA%20DELLO",
-    "KOLBENSCHMIDT" : "KOLBENSCHMIDT",
     "KALE RADYATOR" : "KALE",
+    "KOLBENSCHMIDT" : "KOLBENSCHMIDT",
     "KALERADYATOR" : "KALE",
-    "MERCEDESBENZ" : "MERCEDES%20BENZ",
     "MAHLE/KNECHT" : "MAHLE",
+    "MERCEDESBENZ" : "MERCEDES%20BENZ",
     "VICTOR REINZ" : "VICTOR%20REINZ",
     "VİCTOR REİNZ" : "VICTOR%20REINZ",
     "CONTINENTAL" : "CONTINENTAL",
+    "EREN BALATA" : "EREN%20BALATA",
     "HBJAKOPARTS" : "JAKOPARTS",
     "MAHLEKNECHT" : "MAHLE",
     "VICTORREINZ" : "VICTOR%20REINZ",
     "VİCTORREİNZ" : "VICTOR%20REINZ",
-    "EREN BALATA" : "EREN%20BALATA",
-    "ERENBALATA" : "EREN%20BALATA",
-    "SCHMITZORG" : "SCHMITZ",
-    "MANNFILTER" : "MANN%20FILTER",
     "BLUE PRINT" : "Blue%20Print",
+    "ERENBALATA" : "EREN%20BALATA",
     "HERTH+BUSS" : "H%2BB%20JAKOPARTS",
+    "MANNFILTER" : "MANN%20FILTER",
+    "SCHMITZORG" : "SCHMITZ",
     "SSANG YONG" : "SSANG%20YONG",
     "VICTOR REI" : "VICTOR%20REINZ",
     "VİCTOR REİ" : "VICTOR%20REINZ",
+    "SSANGYONG" : "SSANG%20YONG",
     "BLUEPRINT" : "BLUEPRINT",
     "EUROREPAR" : "EUROREPAR",
     "GKNLOEBRO" : "GKN",
     "HERTHBUSS" : "H%2BB",
     "KACMAZLAR" : "KAÇMAZLAR",
     "LEMFORDER" : "LEMFORDER",
-    "SSANGYONG" : "SSANGYONG",
+    "NTN / SNR" : "NTN",
     "VICTORREI" : "VICTOR%20REINZ",
     "VİCTORREİ" : "VICTOR%20REINZ",
-    "NTN / SNR" : "NTN",
-    "SSANGYONG" : "SSANG%20YONG",
-    "AUTOMEGA" : "AUTOMEGA",
-    "GOODYEAR" : "GOODYEAR",
-    "BILSTEIN" : "BILSTEIN",
     "EURORAPE" : "EUROREPAR",
-    "MBTRUCKS" : "MB%20TRUCKS",
-    "EUROREPA" : "EUROREPAR",
     "LMFORDER" : "LEMFORDER",
+    "AUTOMEGA" : "AUTOMEGA",
+    "BILSTEIN" : "BILSTEIN",
+    "EUROREPA" : "EUROREPAR",
+    "GOODYEAR" : "GOODYEAR",
+    "HYD HOME" : "HYD%20HOME",
+    "MBTRUCKS" : "MB%20TRUCKS",
     "PIERBURG" : "PIERBURG",
     "TEKNOROT" : "TEKNOROT",
     "VOLVOORG" : "VOLVO",
-    "EURORAPE" : "EUROREPAR",
-    "HYD HOME" : "HYD%20HOME",
-    "LMFORDER" : "LEMFORDER",
     "BILSTEN" : "BILSTEIN",
+    "AUGERCE" : "AUGER",
     "CORTECO" : "CORTECO",
+    "E.REPAR" : "EUROREPAR",
     "FEDERAL" : "FEDERAL%20MOGUL",
     "FILTRON" : "FILTRON",
-    "MARELLI" : "MAGNETI%20MARELLI",
-    "OPTIMAL" : "OPTIMAL",
     "HYDHOME" : "HYD%20HOME",
+    "MARELLI" : "MAGNETI%20MARELLI",
     "METELLI" : "METELLI",
     "NISSENS" : "NISSENS",
+    "OPTIMAL" : "OPTIMAL",
     "PIEBURG" : "PIERBURG",
     "PURFLUX" : "PURFLUX",
     "RENAULT" : "RENAULT",
-    "AUGERCE" : "AUGER",
-    "BILSTEN" : "BILSTEIN",
-    "E.REPAR" : "EUROREPAR",
     "V.REINZ" : "VICTOR%20REINZ",
+    "KACMAZ" : "KACMAZLAR",
+    "KAÇMAZ" : "KACMAZLAR",
+    "KOLBEN" : "KOLBENSCHMIDT",
     "AIRTEX" : "AIRTEX",
     "BREMBO" : "BREMBO",
     "DELPHI" : "DELPHI",
     "ELRING" : "ELRING",
-    "HOLSET" : "HOLSET",
     "EREPAR" : "EUROREPAR",
     "FERODO" : "FERODO",
-    "KACMAZ" : "KACMAZ",
-    "PACCAR" : "PACCAR",
-    "PROVIA" : "PROVIA",
-    "KAÇMAZ" : "KAÇMAZ",
-    "KOLBEN" : "KOLBENSCHMIDT",
+    "HOLSET" : "HOLSET",
     "MONROE" : "MONROE",
     "NTNSNR" : "NTN%20SNR",
     "OTOSAN" : "OTOSAN",
+    "PACCAR" : "PACCAR",
+    "PROVIA" : "PROVIA",
     "REPAIR" : "EUROREPAR",
     "TEXTAR" : "TEXTAR",
-    "TITANX" : "TITANX",
     "TIRSAN" : "TIRSAN",
+    "TITANX" : "TITANX",
     "TOPRAN" : "TOPRAN",
     "VERNET" : "VERNET",
     "VREINZ" : "VICTOR%20REINZ",
     "YENMAK" : "YENMAK",
-    "KACMAZ" : "KACMAZLAR",
-    "KAÇMAZ" : "KACMAZLAR",
-    "KOLBEN" : "KOLBENSCHMIDT",
     "AISIN" : "AISIN",
     "BANDO" : "BANDO",
     "BESER" : "BESER",
@@ -194,39 +186,37 @@ brand_replacement = {
     "GATES" : "GATES",
     "GLYCO" : "GLYCO",
     "HELLA" : "HELLA",
-    "LUCAS" : "LUCAS",
     "IVECO" : "IVECO",
+    "LUCAS" : "LUCAS",
     "MAHLE" : "MAHLE",
     "MANDO" : "MANDO",
-    "NÜRAL" : "NÜRAL",
     "MEYLE" : "MEYLE",
+    "NURAL" : "NURAL",
+    "NÜRAL" : "NÜRAL",
     "OSRAM" : "OSRAM",
     "RAPRO" : "RAPRO",
-    "NURAL" : "NURAL",
     "REINZ" : "VICTOR%20REINZ",
     "SACHS" : "SACHS",
-    "VOLVO" : "VOLVO",
     "VALEO" : "VALEO",
+    "VOLVO" : "VOLVO",
     "WABCO" : "WABCO",
-    "BERU" : "BERU",
-    "BEHR" : "BEHR",
     "BLUE" : "BLUE%20PRINT",
+    "FILT" : "FILTRON",
+    "BEHR" : "BEHR",
+    "BERU" : "BERU",
+    "BSCH" : "BOSCH",
     "CAVO" : "CAVO",
     "DOLZ" : "DOLZ",
     "FEBI" : "FEBI",
     "FEBİ" : "FEBI",
-    "FILT" : "FILTRON",
-    "MİBA" : "MIBA",
     "FORD" : "FORD",
     "HUCO" : "HUCO",
     "KALE" : "KALE",
     "MANN" : "MANN%20FILTER",
+    "MİBA" : "MIBA",
     "ONKA" : "ONKA",
     "OPEL" : "OPEL",
     "SWAG" : "SWAG",
-    "BLUE" : "Blue%20Print",
-    "BSCH" : "BOSCH",
-    "FILT" : "FILTRON",
     "BAN" : "BANDO",
     "BCH" : "BOSCH",
     "BER" : "BERU",
@@ -234,8 +224,8 @@ brand_replacement = {
     "BLU" : "BLUE%20PRINT",
     "BOS" : "BOSCH",
     "BRB" : "BREMBO",
-    "BRE" : "BREMBO",
-    "BRU" : "BLUEPRINT",
+    "BRE" : "BREMI",
+    "BRU" : "BERU",
     "BSC" : "BOSCH",
     "CIF" : "CIFAM",
     "CNT" : "CONTINENTAL",
@@ -247,152 +237,105 @@ brand_replacement = {
     "DEN" : "DENSO",
     "DNS" : "DENSO",
     "DOL" : "DOLZ",
-    "DYC" : "DAYCO",
     "ELR" : "ELRING",
     "FAC" : "FACET",
-    "FAE" : "FAE",
-    "FAG" : "FAG",
     "FBI" : "FEBI",
     "FEB" : "FEBI",
     "FLT" : "FILTRON",
     "FOR" : "FORD",
     "FRD" : "FORD",
-    "FRJ" : "FIAT",
-    "FTE" : "FTE",
     "GAT" : "GATES",
     "GKN" : "GKN",
     "GLY" : "GLYCO",
     "GTS" : "GATES",
     "HEL" : "HELLA",
     "HLL" : "HELLA",
+    "HNG" : "HENGST",
     "INA" : "INA",
-    "KAL" : "KALE",
     "KOL" : "KOLBENSCHMIDT",
     "LEM" : "LEMFORDER",
     "LMF" : "LEMFORDER",
-    "LUK" : "LUK",
     "MAH" : "MAHLE",
-    "MAI" : "MAHLE",
-    "MAN" : "MANN%20FILTER",
-    "MGA" : "AUTOMEGA",
+    "MAI" : "RENAULT",
+    "MAN" : "MANDO",
     "MHL" : "MAHLE",
-    "MND" : "MANDO",
     "MON" : "MONROE",
     "MTL" : "METELLI",
     "NGK" : "NGK",
+    "NRV" : "NARVA",
+    "OPL" : "OPEL",
+    "OSR" : "OSRAM",
+    "PIE" : "PIERBURG",
+    "PUR" : "PURFLUX",
+    "RAP" : "RAPRO",
+    "RNZ" : "VICTOR%20REINZ",
+    "SAC" : "SACHS",
+    "SCH" : "SACHS",
+    "SCS" : "SACHS",
+    "SCX" : "SACHS",
+    "SHS" : "SACHS",
+    "SKF" : "SKF",
+    "SNR" : "SNR",
+    "SWG" : "SWAG",
+    "TEK" : "TEKNOROT",
+    "TRW" : "TRW",
+    "VAL" : "VALEO",
+    "VCT" : "VICTOR%20REINZ",
+    "VER" : "VERNET",
+    "YEN" : "YENMAK",
+    "DYC" : "DAYCO",
+    "FAE" : "FAE",
+    "FAG" : "FAG",
+    "FRJ" : "FIAT",
+    "FTE" : "FTE",
+    "GMB" : "GMB",
+    "KAL" : "KALE",
+    "KYB" : "KYB",
+    "LUK" : "LUK",
+    "MGA" : "AUTOMEGA",
+    "MMA" : "MAGNETI%20MARELLI",
+    "MND" : "MANDO",
     "NRF" : "NRF",
     "NTN" : "NTN",
     "OES" : "OES",
-    "OPL" : "OPEL",
-    "ORJ" : "ORIGINAL",
-    "OSR" : "OSRAM",
     "OTO" : "OTO",
-    "PIE" : "PIERBURG",
+    "POJ" : "PEUGEOT%20CITROEN",
     "PRB" : "PIERBURG",
     "PRG" : "PIERBURG",
-    "TRW" : "TRW",
-    "HNG" : "HENGST",
     "PSA" : "PSA",
-    "PUR" : "PURFLUX",
-    "RAP" : "RAPRO",
-    "RNZ" : "VICTOR%20REINZ",
-    "NRV" : "NRV",
-    "SAC" : "SACHS",
-    "SCH" : "SACHS",
-    "SCS" : "SACHS",
-    "SCX" : "SACHS",
-    "SHS" : "SACHS",
-    "SKF" : "SKF",
-    "SNR" : "SNR",
-    "SWF" : "SWF",
-    "SWG" : "SWAG",
-    "TEK" : "TEKNOROT",
-    "TRW" : "TRW",
-    "UFI" : "UFI",
-    "VAL" : "VALEO",
-    "VCT" : "VICTOR%20REINZ",
-    "VER" : "VERNET",
-    "YEN" : "YENMAK",
-    "BAN" : "BANDO",
-    "BER" : "BERU",
-    "BIL" : "BILSTEIN",
-    "BLU" : "Blue%20Print",
-    "BRU" : "BERU",
-    "BOS" : "BOSCH",
-    "BCH" : "BOSCH",
-    "BSC" : "BOSCH",
-    "BRE" : "BREMBO",
-    "BRB" : "BREMBO",
-    "CIF" : "CIFAM",
-    "CON" : "Continental",
-    "CNT" : "Continental",
-    "COR" : "CORTECO",
-    "COR" : "CORTECO",
-    "CRT" : "CORTECO",
-    "DAY" : "DAYCO",
-    "DEL" : "DELPHI",
-    "DEN" : "DENSO",
-    "DNS" : "DENSO",
-    "DOL" : "DOLZ",
-    "ELR" : "ELRING",
-    "FAC" : "FACET",
-    "FBI" : "FEBI",
-    "FEB" : "FEBI",
-    "FLT" : "FILTRON",
-    "FOR" : "FORD",
-    "FRD" : "FORD",
-    "GTS" : "GATES",
-    "GAT" : "GATES",
-    "GKN" : "GKN",
-    "GLY" : "GLYCO",
-    "HEL" : "HELLA",
-    "HLL" : "HELLA",
-    "HLL" : "HELLA",
-    "INA" : "INA",
-    "KOL" : "KOLBENSCHMIDT",
-    "LEM" : "LEMFORDER",
-    "LMF" : "LEMFORDER",
-    "MAI" : "RENAULT",
-    "MAH" : "MAHLE",
-    "MHL" : "MAHLE",
-    "MAN" : "MANN-FILTER",
-    "MMA" : "MAGNETI%20MARELLI",
-    "MND" : "MANDO",
-    "MON" : "MONROE",
-    "MTL" : "METELLI",
-    "NGK" : "NGK",
-    "OPL" : "OPEL",
-    "OSR" : "OSRAM",
-    "POJ" : "PEUGEOT%20CITROEN",
-    "ORJ" : "PEUGEOT-CITROEN",
-    "PIE" : "PIERBURG",
-    "PUR" : "PURFLUX",
-    "RAP" : "RAPRO",
     "RYL" : "ROYAL",
-    "SAC" : "SACHS",
-    "SCS" : "SACHS",
     "SKT" : "SKT",
-    "SHS" : "SACHS",
-    "SCH" : "SACHS",
-    "SCX" : "SACHS",
-    "HNG" : "HENGST",
-    "NRV" : "NARVA",
-    "SKF" : "SKF",
-    "SNR" : "SNR",
-    "SWG" : "SWAG",
-    "TEK" : "TEKNOROT",
-    "TRW" : "TRW",
-    "RNZ" : "VICTOR%20REINZ",
-    "VAL" : "VALEO",
-    "VCT" : "VICTOR%20REINZ",
-    "VER" : "VERNET",
+    "SWF" : "SWF",
+    "TXT" : "TEXTAR",
+    "UFI" : "UFI",
     "WIN" : "WIN",
     "WOD" : "WOD",
-    "YEN" : "YENMAK",
     "YNM" : "YENMAK",
+    "ORJ" : "ORIGINAL",
+    "ORJ" : "PEUGEOT-CITROEN",
+
+    
 
 }
 
+
+def excel_value_to_string(value):
+    """
+    Преобразует значение из Excel в строку, корректно обрабатывая числа
+    """
+    if value is None or value == '':
+        return ''
+    
+    # Если это число (int или float)
+    if isinstance(value, (int, float)):
+        # Проверяем, является ли это целым числом
+        if float(value).is_integer():
+            return str(int(value))  # Возвращаем как целое число без .0
+        else:
+            return str(value)  # Возвращаем как есть для дробных чисел
+    
+    # Для всех остальных типов просто преобразуем в строку
+    return str(value).strip()
 
 
 
@@ -402,26 +345,26 @@ brand_replacement = {
 
 
 try:
-    wb = xw.Book(part_file)
+    wb = xw.Book(wb_path)
     active_sheet = wb.sheets.active
     sht = wb.sheets[active_sheet.name]
     data = active_sheet.range(f'{first_cell}:{last_cell}').value   #берет все данные с активного листа
     #addr = active_sheet.api.Application.ActiveCell.Address
     #print("Адрес:", addr)
 except FileNotFoundError:
-    print(f"НЕТ ФАЙЛА part в папке {current_dir}\n")
+    print(f"НЕТ ФАЙЛА в папке {wb_path}")
     sys.exit()  #выход ибо нет файла
 
-print
+
 
 
 total_rows = user_row_number
 
-print(f"Артикулы берем из файла '{Path(part_file).name}'")
+print(f"Артикулы берем из файла '{Path(wb_path).name}'")
 print(f"Из листа '{active_sheet.name}' в {first_cell}-{last_cell}" )
 print(f"Всего {total_rows} позиций.")
 print("")
-print(f'{"Позиция".ljust(10):7}{"Артикул".ljust(18):15}{"Марка".ljust(20):15}Наименование')
+print(f'{"Позиция".ljust(10):7}{"Артикул".ljust(20):15}{"Марка".ljust(20):15}Наименование')
 
 
 
@@ -432,9 +375,9 @@ for row_index, row in enumerate(data):
      #   continue #пропускаем пустые строки
 
     #print(f"row_index:{row_index}, row:{row}")
-    row = str(row)
-    raw_art = row.strip()
     
+    #raw_art = row.strip()
+    raw_art = excel_value_to_string(row) #в будущем надо будет использовать индексы если данные неодномерные
     #raw_art = str(row[0]).strip()  # все данные в row 
     #print(f"raw_art: {raw_art}" )
     new_art = raw_art
@@ -446,14 +389,21 @@ for row_index, row in enumerate(data):
     marka = ((sht.range(row_index + first_row, 13).value) or "").upper()
     #print(f"proiz: {proiz}, marka: {marka}")
 
-    for brand in brand_replacement:
-        if brand in raw_art:                        # если марки в артикуле
-            new_art = raw_art.replace(brand, "")
-            marka = brand_replacement[brand]
-        elif proiz in brand_replacement:            # если в столбце произв сокращенные марки
-            marka = brand_replacement[proiz]
-        elif marka in brand_replacement:            # если в столбце марки сокращенные марки
-            marka = brand_replacement[marka]
+    
+
+    if marka in brand_replacement:
+        new_art = raw_art.replace(proiz, "")
+        marka = brand_replacement[marka]
+    elif proiz in brand_replacement:
+        new_art = raw_art.replace(proiz, "")
+        marka = brand_replacement[proiz]
+    else:
+        for brand in brand_replacement:
+            if brand in raw_art:                        # если марки в артикуле
+                new_art = raw_art.replace(brand, "")
+                marka = brand_replacement[brand]
+                break
+
         
  
 
@@ -479,7 +429,7 @@ for row_index, row in enumerate(data):
     marka = unquote(marka or "")
 
     pos_index = (str(row_index + 1) + '/' + str(total_rows)).ljust(10)    #номер позиции
-    print(f'{pos_index:7}{art.ljust(18):15}{marka.ljust(20):15}{product_name_dexup}')
+    print(f'{pos_index:7}{art.ljust(20):15}{marka.ljust(20):15}{product_name_dexup}')
     
     sht.range(row_index + first_row, 4).value = [
         product_name_dexup
@@ -505,7 +455,7 @@ for row_index, row in enumerate(data):
 # Сохраняем обновленный Excel файл
 #active_sheet.range("A1").value = data
 print("")
-print("Данные успешно сохранены в файл:", part_PL_file)
+print("Данные успешно сохранены в файл:", wb_path)
 t1 = time.time()
-print("Процесс занял", round((t1 - t0)/60), "минут(ы)")
+print("Процесс занял", round((t1 - t0)/60), "минут")
 print("")
