@@ -7,23 +7,10 @@ from fake_useragent import UserAgent
 import time
 from urllib.parse import unquote
 from pathlib import Path
-import xlwings as xw   #нужно чтобы достать активный лист
-
 
 current_dir = Path(__file__).parent 
-part_file = sys.argv[1]    #второй аргумент (путь к файлу) при запуске скрипта через cmd 
-part_PL_file = sys.argv[1]
-first_cell = sys.argv[2]
-first_row = int(sys.argv[3])
-user_row_number = int(sys.argv[4])
-last_row = first_row + user_row_number - 1
-user_column = first_cell.split("$")[1]
-
-#part_file = current_dir / 'part.xlsx'
-#part_PL_file = current_dir / 'part_PL.xlsx'
-
-#print(f'first cell:{first_cell} first row:{first_row} user row number:{user_row_number} last_row:{last_row}')
-
+part_file = current_dir / 'part.xlsx'
+part_PL_file = current_dir / 'part_PL.xlsx'
 
 t0 = time.time()
 
@@ -187,50 +174,26 @@ brand_replacement = {
     "YEN": "YENMAK"
 }
 
-
-
-
-
-
-
-
-
 try:
-    wb = xw.Book(part_file)
-    active_sheet = wb.sheets.active
-    sht = wb.sheets[active_sheet.name]
-    data = active_sheet.range(first_cell).current_region.value   #берет все данные с активного листа
-    #addr = active_sheet.api.Application.ActiveCell.Address
-    #print("Адрес:", addr)
+    df = pd.read_excel(part_file, header=None, dtype=object)  # Читаем файл без заголовков. dtype=object решает проблему с dtype в df.at[index, 2] = product_name_dexup
 except FileNotFoundError:
     print(f"НЕТ ФАЙЛА part в папке {current_dir}\n")
     sys.exit()  #выход ибо нет файла
 
-print
+total_rows = df.shape[0] - 1
 
-
-total_rows = user_row_number
-
-print(f"Артикулы берем из файла '{Path(part_file).name}'")
-print(f"Из листа '{active_sheet.name}' в {user_column}{first_row}-{user_column}{last_row}" )
-print(f"Всего {total_rows} позиций.")
+print(f"Данные берем из {part_file}.\nВсего {total_rows} позиций.")
 print("")
 print(f'{"Позиция".ljust(10):7}{"Артикул".ljust(20):15}{"Марка".ljust(20):15}Наименование')
 
-
-
 # Проходим по строкам файла и парсим данные
-for row_index, row in enumerate(data):
-    if all(cell is None or cell == '' for cell in row):
-        continue #пропускаем пустые строки
-    #print(f"row_index:{row_index}, row:{row}")
+for index, row in df.iterrows():
+    if index == 0:
+        continue  # Пропускаем первую строку
     
-    raw_art = str(row[0]).strip()  # все данные в row 
-    marka = str(row[1]).strip()  
+    raw_art = str(row[0])  # Исходный артикул в первом столбце
+    marka = str(row[1]).strip()  # Марка во втором столбце, очищаем от пробелов в начале и в конце
     
-    #print(f"raw_art: {raw_art}, marka: {marka}")
- 
-
     # Очистка артикула
     art = clean_artikul(raw_art)
     
@@ -252,22 +215,20 @@ for row_index, row in enumerate(data):
     'DECODING URL'
     decoded_marka = unquote(marka)
 
-    pos_index = (str(row_index + 1) + '/' + str(total_rows)).ljust(10)    #номер позиции
-    print(f'{pos_index:7}{art.ljust(20):15}{decoded_marka.ljust(20):15}{product_name_dexup}')
+    row_index = (str(index) + '/' + str(total_rows)).ljust(10)    #номер позиции
+    print(f'{row_index:7}{art.ljust(20):15}{decoded_marka.ljust(20):15}{product_name_dexup}')
 
-    sht.range(row_index + first_row, 3).value = [
-        product_name_dexup,
-        mass_dexup,
-        decoded_marka,
-        material_dexup,
-        url_dexup,
-    ]
-
+    # Сохранение данных в соответствующие столбцы
+    df.at[index, 2] = product_name_dexup # Основное описание с dexup
+    df.at[index, 3] = mass_dexup if mass_dexup is not None else float('nan')  # Масса с dexup
+    df.at[index, 4] = decoded_marka	
+    df.at[index, 5] = material_dexup if material_dexup is not None else ""  # Материал с dexup
+    df.at[index, 6] = url_dexup  # Ссылка на страницу dexup
 
     time.sleep(1)
-    
+
 # Сохраняем обновленный Excel файл
-#active_sheet.range("A1").value = data
+df.to_excel(part_PL_file, index=False, header=False)
 print("")
 print("Данные успешно сохранены в файл:", part_PL_file)
 t1 = time.time()
