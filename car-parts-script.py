@@ -385,24 +385,24 @@ for row_index, row in enumerate(data):
     #print(marka)
     #marka = str(row[1]).strip()  # марка из второго столбца
 
-    proiz = ((sht.range(row_index + first_row, 12).value) or "").upper()   # or "" - чтобы не выдавал ошибку из-за None
-    marka = ((sht.range(row_index + first_row, 13).value) or "").upper()
+    original_proiz = ((sht.range(row_index + first_row, 12).value) or "").upper()   # or "" - чтобы не выдавал ошибку из-за None
+    original_marka = ((sht.range(row_index + first_row, 13).value) or "").upper()
     #print(f"proiz: {proiz}, marka: {marka}")
 
     
 
-    if marka in brand_replacement:
-        new_art = raw_art.replace(proiz, "")
-        marka = brand_replacement[marka]
-    elif proiz in brand_replacement:
-        new_art = raw_art.replace(proiz, "")
-        marka = brand_replacement[proiz]
-    else:
-        for brand in brand_replacement:
-            if brand in raw_art:                        # если марки в артикуле
-                new_art = raw_art.replace(brand, "")
-                marka = brand_replacement[brand]
-                break
+    for brand in brand_replacement:
+        if brand in raw_art:                        # если марки в артикуле
+            new_art = raw_art.replace(brand, "")
+            marka = brand_replacement[brand]
+            break
+
+    if original_marka in brand_replacement:
+        marka = original_marka
+    
+    elif original_proiz in brand_replacement:
+        marka = brand_replacement[original_proiz]
+
 
         
  
@@ -440,6 +440,11 @@ for row_index, row in enumerate(data):
         marka,
         marka
     ]
+
+    sht.range(row_index + first_row, 16).value = [              # марки в столбцы 12 и 13 (L и M)
+        mass_dexup
+    ]
+
 
     #sht.range(row_index + first_row, 4).value = [
     #    product_name_dexup,
