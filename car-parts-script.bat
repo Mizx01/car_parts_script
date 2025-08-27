@@ -1,3 +1,3 @@
 @echo off
-python "%~dp0car_parts_script.py"
+python "%~dp0car-parts-script.py"
 pause
