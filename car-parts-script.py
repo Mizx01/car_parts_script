@@ -369,7 +369,7 @@ print(f"Всего {total_rows} позиций.")
 print("")
 print(f'{"Позиция".ljust(10):7}{"Артикул".ljust(20):15}{"Марка".ljust(20):15}Наименование')
 
-
+#print(data)
 
 # Проходим по строкам файла и парсим данные
 for row_index, row in enumerate(data):
@@ -399,12 +399,15 @@ for row_index, row in enumerate(data):
             new_art = raw_art.replace(brand, "")
             marka = brand_replacement[brand]
             break
-
-    if original_marka in brand_replacement:
-        marka = original_marka
     
-    elif original_proiz in brand_replacement:
-        marka = brand_replacement[original_proiz]
+    if original_marka != "":
+        marka = original_marka
+    elif original_proiz != "":
+        marka = original_proiz
+    
+    if marka in brand_replacement:
+        marka = brand_replacement[marka]
+
 
 
         
