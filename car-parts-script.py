@@ -235,6 +235,7 @@ brand_replacement = {
     "BIL" : "BILSTEIN",
     "BLU" : "BLUE%20PRINT",
     "BOS" : "BOSCH",
+    "BSH" : "BOSCH",
     "BMW" : "BMW",
     "BRB" : "BREMBO",
     "BRE" : "BREMI",
