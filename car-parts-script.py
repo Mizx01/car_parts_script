@@ -153,6 +153,7 @@ brand_replacement = {
     "PURFLUX" : "PURFLUX",
     "PLEKSAN" : "PLEKSAN",
     "RENAULT" : "RENAULT",
+    "GARRETT" : "GARRETT",
     "V.REINZ" : "VICTOR%20REINZ",
     "KACMAZ" : "KACMAZLAR",
     "KAÇMAZ" : "KACMAZLAR",
@@ -181,6 +182,7 @@ brand_replacement = {
     "VREINZ" : "VICTOR%20REINZ",
     "YENMAK" : "YENMAK",
     "YILMAZ" : "YILMAZ",
+    "TURTEL" : "TURTEL",
     "AISIN" : "AISIN",
     "BANDO" : "BANDO",
     "BESER" : "BESER",
@@ -193,15 +195,18 @@ brand_replacement = {
     "FACET" : "FACET",
     "GATES" : "GATES",
     "GLYCO" : "GLYCO",
+    "IBRAS" : "IBRAS",
     "HELLA" : "HELLA",
     "IVECO" : "IVECO",
     "LUCAS" : "LUCAS",
+    "ONPER" : "ONPER",
     "MAHLE" : "MAHLE",
     "MANDO" : "MANDO",
     "MEYLE" : "MEYLE",
     "NURAL" : "NURAL",
     "NÜRAL" : "NÜRAL",
     "OSRAM" : "OSRAM",
+    "SAHIN" : "SAHIN",
     "RAPRO" : "RAPRO",
     "REINZ" : "VICTOR%20REINZ",
     "SACHS" : "SACHS",
@@ -224,6 +229,7 @@ brand_replacement = {
     "KAYA" : "KAYA",
     "KING" : "KING",
     "MANN" : "MANN%20FILTER",
+    "MARS" : "MARS",
     "MEHA" : "MEHA",
     "MİBA" : "MIBA",
     "ONKA" : "ONKA",
@@ -382,11 +388,14 @@ print(f"Всего {total_rows} позиций.")
 print("")
 print(f'{"Позиция".ljust(10):7}{"Артикул".ljust(20):15}{"Марка".ljust(20):15}Наименование')
 
+#if total_rows == 1:
+
+
 #print(data)
 
 # Проходим по строкам файла и парсим данные
 for row_index, row in enumerate(data):
-    
+
     #if all(cell is None or cell == '' for cell in row):
      #   continue #пропускаем пустые строки
 
