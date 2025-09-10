@@ -25,7 +25,6 @@ last_cell = f'{user_column}{last_row}'
 
 #print(f'first cell:{first_cell} first row:{first_row} user row number:{user_row_number} last_row:{last_row}')
 
-
 t0 = time.time()
 
 ua = UserAgent()
