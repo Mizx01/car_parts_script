@@ -235,6 +235,7 @@ brand_replacement = {
     "ONKA" : "ONKA",
     "OPEL" : "OPEL",
     "SWAG" : "SWAG",
+    "AIS" : "AISIN",
     "BAN" : "BANDO",
     "BCH" : "BOSCH",
     "BER" : "BERU",
@@ -283,8 +284,11 @@ brand_replacement = {
     "MTL" : "METELLI",
     "NGK" : "NGK",
     "NIS" : "NISSENS",
+    "NıS" : "NISSENS",
     "NRV" : "NARVA",
     "OPL" : "OPEL",
+    "OPT" : "OPTIMAL",
+    "OSM" : "OSRAM",
     "OSR" : "OSRAM",
     "PIE" : "PIERBURG",
     "PUR" : "PURFLUX",
@@ -335,6 +339,7 @@ brand_replacement = {
     "YNM" : "YENMAK",
     "ORJ" : "ORIGINAL",
     "ORJ" : "PEUGEOT-CITROEN",
+    "TX" : "TEXTAR"
 
     
 
@@ -430,6 +435,10 @@ for row_index, row in enumerate(data):
     if marka in brand_replacement:
         marka = brand_replacement[marka]
 
+    if "BSG" in new_art:                            # это сделано потому что артикулы BSG содержат BSG на сайте dexup
+        marka = "BSG"                               # BSG список исключений не добавлю потому что нельзя убирать BSG из артикула
+
+
 
 
         
@@ -449,6 +458,7 @@ for row_index, row in enumerate(data):
     product_name_dexup, mass_dexup, material_dexup = parse_page_dexup(url_dexup)
 
     
+    
     # Приведение данных к корректному регистру
     product_name_dexup = capitalize_first_letter(product_name_dexup)
     material_dexup = capitalize_first_letter(material_dexup)
@@ -459,10 +469,13 @@ for row_index, row in enumerate(data):
     pos_index = (str(row_index + 1) + '/' + str(total_rows)).ljust(10)    #номер позиции
     print(f'{pos_index:7}{art.ljust(20):15}{marka.ljust(20):15}{product_name_dexup}')
     
+
+
+
+
     sht.range(row_index + first_row, 4).value = [
         product_name_dexup
     ]
-
 
     sht.range(row_index + first_row, 12).value = [              # марки в столбцы 12 и 13 (L и M)
         marka,
