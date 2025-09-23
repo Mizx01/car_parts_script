@@ -407,7 +407,7 @@ for row_index, row in enumerate(data):
     #print(f"row_index:{row_index}, row:{row}")
     
     #raw_art = row.strip()
-    raw_art = excel_value_to_string(row) #в будущем надо будет использовать индексы если данные неодномерные
+    raw_art = excel_value_to_string(row).upper() #в будущем надо будет использовать индексы если данные неодномерные
     #raw_art = str(row[0]).strip()  # все данные в row 
     #print(f"raw_art: {raw_art}" )
     new_art = raw_art
