@@ -90,6 +90,7 @@ def capitalize_first_letter(text):
 # Словарь для замены марок
 brand_replacement = {
     "PEUGEOT / CITROEN" : "PEUGEOT%20CITROEN",
+    "MAGNETI MARELLI" : "MAGNETI MARELLI",
     "AUTOMEGA DELLO" : "AUTOMEGA",
     "MAHLE / KNECHT" : "MAHLE",
     "PEUGEOTCITROEN" : "PEUGEOT%20CITROEN",
@@ -146,12 +147,15 @@ brand_replacement = {
     "FILTRON" : "FILTRON",
     "HYDHOME" : "HYD%20HOME",
     "MARELLI" : "MAGNETI%20MARELLI",
+    "MAGNETI" : "MAGNETI%20MARELLI",
     "METELLI" : "METELLI",
+    "PSA-PEUG": "PEUGEOT-CITROEN",
     "NISSENS" : "NISSENS",
     "OPTIMAL" : "OPTIMAL",
     "PIEBURG" : "PIERBURG",
     "PURFLUX" : "PURFLUX",
     "PLEKSAN" : "PLEKSAN",
+    "SNR-NTN" : "SNR",
     "RENAULT" : "RENAULT",
     "GARRETT" : "GARRETT",
     "V.REINZ" : "VICTOR%20REINZ",
