@@ -328,6 +328,7 @@ brand_replacement = {
     "MGA" : "AUTOMEGA",
     "MMA" : "MAGNETI%20MARELLI",
     "MND" : "MANDO",
+    "MNN" : "MANN-FILTER",
     "NRF" : "NRF",
     "NTN" : "NTN",
     "OES" : "OES",
@@ -340,16 +341,18 @@ brand_replacement = {
     "SKT" : "SKT",
     "SWF" : "SWF",
     "TXT" : "TEXTAR",
+    "TUR" : "TURTEL",
+    "TIR" : "TIRSAN",
     "UFI" : "UFI",
     "WIN" : "WIN",
     "WOD" : "WOD",
     "YTT" : "YTT",
     "YNM" : "YENMAK",
-    "ORJ" : "ORIGINAL",
-    "ORJ" : "PEUGEOT-CITROEN",
-    "TX" : "TEXTAR"
-
-    
+    "ORJ" : "VAG",
+    #"ORJ" : "ORIGINAL",
+    #"ORJ" : "PEUGEOT-CITROEN",
+    "TX" : "TEXTAR",
+    "VR" : "VICTOR%20REINZ"
 
 }
 
