@@ -329,6 +329,7 @@ brand_replacement = {
     "MMA" : "MAGNETI%20MARELLI",
     "MND" : "MANDO",
     "MNN" : "MANN-FILTER",
+    "MGA" : "MGA",
     "NRF" : "NRF",
     "NTN" : "NTN",
     "OES" : "OES",
