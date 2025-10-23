@@ -163,6 +163,8 @@ brand_replacement = {
     "KAÇMAZ" : "KACMAZLAR",
     "KOLBEN" : "KOLBENSCHMIDT",
     "KONEKS" : "KONEKS",
+    "HENGST" : "HENGST",
+    "WAHLER" : "WAHLER",
     "AIRTEX" : "AIRTEX",
     "BREMBO" : "BREMBO",
     "DELPHI" : "DELPHI",
