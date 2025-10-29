@@ -111,8 +111,10 @@ brand_replacement = {
     "VİCTORREİNZ" : "VICTOR%20REINZ",
     "BLUE PRINT" : "Blue%20Print",
     "ERENBALATA" : "EREN%20BALATA",
+    "HUTCHINSON" : "HUTCHINSON",
     "HERTH+BUSS" : "H%2BB%20JAKOPARTS",
     "MANNFILTER" : "MANN%20FILTER",
+    "HUTCHINSON" : "HUTCHINSON",
     "SCHMITZORG" : "SCHMITZ",
     "SSANG YONG" : "SSANG%20YONG",
     "VICTOR REI" : "VICTOR%20REINZ",
@@ -246,6 +248,7 @@ brand_replacement = {
     "TRSN" : "TIRSAN",
     "ONKA" : "ONKA",
     "OPEL" : "OPEL",
+    "GRAF" : "GRAF",
     "SWAG" : "SWAG",
     "AIS" : "AISIN",
     "BAN" : "BANDO",
@@ -263,6 +266,7 @@ brand_replacement = {
     "BSC" : "BOSCH",
     "CIF" : "CIFAM",
     "CNT" : "CONTINENTAL",
+    "CNR" : "CNR",
     "CON" : "CONTINENTAL",
     "COR" : "CORTECO",
     "CRT" : "CORTECO",
@@ -272,6 +276,7 @@ brand_replacement = {
     "DNS" : "DENSO",
     "DOL" : "DOLZ",
     "ELR" : "ELRING",
+    "ERA" : "ERA",
     "FAC" : "FACET",
     "FBI" : "FEBI",
     "FEB" : "FEBI",
@@ -364,7 +369,8 @@ brand_replacement = {
     #"ORJ" : "ORIGINAL",
     #"ORJ" : "PEUGEOT-CITROEN",
     "TX" : "TEXTAR",
-    "VR" : "VICTOR%20REINZ"
+    "VR" : "VICTOR%20REINZ",
+    "GM" : "GENERAL MOTORS"
 
 }
 
