@@ -311,6 +311,7 @@ brand_replacement = {
     "OPT" : "OPTIMAL",
     "OSM" : "OSRAM",
     "OSR" : "OSRAM",
+    "ULO" : "ULO",
     "PIE" : "PIERBURG",
     "PUR" : "PURFLUX",
     "RAP" : "RAPRO",
