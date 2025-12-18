@@ -253,6 +253,7 @@ brand_replacement = {
     "OPEL" : "OPEL",
     "SWAG" : "SWAG",
     "AIS" : "AISIN",
+    "AYF" : "AYFAR",
     "GMB" : "GMB",
     "BAN" : "BANDO",
     "BCH" : "BOSCH",
@@ -355,8 +356,10 @@ brand_replacement = {
     "OES" : "OES",
     "GNS" : "GUNES",
     "IBR" : "IBRAS",
+    "IVE" : "IVECO",
     "OTO" : "OTO",
     "POJ" : "PEUGEOT%20CITROEN",
+    "PEU" : "PEUGEOT%20CITROEN",
     "PRB" : "PIERBURG",
     "PRG" : "PIERBURG",
     "PSA" : "PSA",
@@ -377,7 +380,9 @@ brand_replacement = {
     #"ORJ" : "PEUGEOT-CITROEN",
     "TX" : "TEXTAR",
     "GM" : "GENERAL MOTORS",
-    "VR" : "VICTOR%20REINZ"
+    "VR" : "VICTOR%20REINZ",
+    "LF" : "LEMFORDER",
+    "MB" : "MERCEDES%20BENZ"
 }
 
 
