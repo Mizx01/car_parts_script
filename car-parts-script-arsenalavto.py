@@ -19,6 +19,7 @@ last_row = first_row + user_row_number - 1
 user_column = first_cell.split("$")[1]
 first_cell = f'{user_column}{first_row}'
 last_cell = f'{user_column}{last_row}'
+url = f"https://www.arsenalavto-sm.ru/parts/"
 
 #wb_path = current_dir / 'part.xlsx'
 #wb_path = current_dir / 'part_PL.xlsx'
@@ -248,6 +249,7 @@ brand_replacement = {
     "KING" : "KING",
     "MANN" : "MANN%20FILTER",
     "MARS" : "MARS",
+    "MAIS" : "RENAULT",
     "MEHA" : "MEHA",
     "MİBA" : "MIBA",
     "TRSN" : "TIRSAN",
@@ -302,6 +304,7 @@ brand_replacement = {
     "GKN" : "GKN",
     "GLY" : "GLYCO",
     "GTS" : "GATES",
+    "GSP" : "GSP",
     "GVA" : "GVA",
     "HEL" : "HELLA",
     "REMSA" : "REMSA",
@@ -313,7 +316,7 @@ brand_replacement = {
     "LMF" : "LEMFORDER",
     "MAH" : "MAHLE",
     "MAI" : "RENAULT",
-    "MAN" : "MANDO",
+    "MAN" : "MANN-FILTER",
     "MHL" : "MAHLE",
     "MON" : "MONROE",
     "MTA" : "MTA",
@@ -454,6 +457,7 @@ total_rows = user_row_number
 print(f"Артикулы берем из файла '{Path(wb_path).name}'")
 print(f"Из листа '{active_sheet.name}' в {first_cell}-{last_cell}" )
 print(f"Всего {total_rows} позиций.")
+print(f"Парсим сайт www.arsenalavto-sm.ru")
 print("")
 print(f'{"Позиция".ljust(10):7}{"Артикул".ljust(20):15}{"Марка".ljust(20):15}Наименование')
 
@@ -482,15 +486,17 @@ for row_index, row in enumerate(data):
     original_proiz = ((sht.range(row_index + first_row, 12).value) or "").upper()   # or "" - чтобы не выдавал ошибку из-за None
     original_marka = ((sht.range(row_index + first_row, 13).value) or "").upper()
     #print(f"proiz: {proiz}, marka: {marka}")
+    original_proiz = original_proiz.strip()
+    original_marka = original_marka.strip()
 
-    
 
     for brand in brand_replacement:
         if brand in raw_art:                        # если марки в артикуле
             new_art = raw_art.replace(brand, "")
             marka = brand_replacement[brand]
             break
-    
+
+
     if original_marka != "":
         marka = original_marka
     elif original_proiz != "":
@@ -517,11 +523,13 @@ for row_index, row in enumerate(data):
     #    marka = brand_replacement[marka]
     
     #Формирование URL и парсинг данных с dexup
-    url_dexup = f"https://dexup.ru/parts/{marka}/{art}"
+    url_dexup = f"{url}{marka}/{art}"
     
     # Вызов функции парсинга страницы dexup
     product_name_dexup, mass_dexup, material_dexup = parse_page_dexup(url_dexup)
 
+    if "MAIS" in raw_art:                           # чтобы марка MAIS на сайте dexup искал по марке RENAULT,
+        marka = "MAIS"                              # а сама марка MAIS осталась в пакинге.
     
     
     # Приведение данных к корректному регистру
@@ -561,7 +569,7 @@ for row_index, row in enumerate(data):
     #]
 
 
-    time.sleep(1)
+    time.sleep(2)
     
 # Сохраняем обновленный Excel файл
 #active_sheet.range("A1").value = data

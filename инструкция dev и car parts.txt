@@ -1,0 +1,29 @@
+﻿ИНСТРУКЦИЯ: создание venv и установка requirements.txt через cmd
+
+1. Перейти в папку проекта:
+
+cd /d C:\meylis\car-parts-script
+
+2. Проверить версию Python:
+
+python --version
+
+3. Создать виртуальное окружение:
+
+python -m venv venv
+
+4. Активировать виртуальное окружение:
+
+venv\Scripts\activate
+
+После активации строка должна выглядеть примерно так:
+
+(venv) C:\meylis\car-parts-script>
+
+5. Установить зависимости из requirements.txt:
+
+python -m pip install -r requirements.txt
+
+6. Когда закончишь работу, выйти из виртуального окружения:
+
+deactivate

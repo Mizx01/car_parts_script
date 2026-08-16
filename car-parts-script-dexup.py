@@ -112,7 +112,8 @@ brand_replacement = {
     "BLUE PRINT" : "Blue%20Print",
     "ERENBALATA" : "EREN%20BALATA",
     "HERTH+BUSS" : "H%2BB%20JAKOPARTS",
-    "MANNFILTER" : "MANN%20FILTER",
+    #"MANNFILTER" : "MANN%20FILTER",
+    "MANNFILTER" : "MANN-FILTER",
     "SCHMITZORG" : "SCHMITZ",
     "SSANG YONG" : "SSANG%20YONG",
     "VICTOR REI" : "VICTOR%20REINZ",
@@ -165,9 +166,9 @@ brand_replacement = {
     "RENAULT" : "RENAULT",
     "GARRETT" : "GARRETT",
     "V.REINZ" : "VICTOR%20REINZ",
+    "KOLBEN" : "KOLBENSCHMIDT",
     "KACMAZ" : "KACMAZLAR",
     "KAÇMAZ" : "KACMAZLAR",
-    "KOLBEN" : "KOLBENSCHMIDT",
     "KONEKS" : "KONEKS",
     "HENGST" : "HENGST",
     "WAHLER" : "WAHLER",
@@ -246,8 +247,9 @@ brand_replacement = {
     "VIKA" : "VIKA",
     "KAYA" : "KAYA",
     "KING" : "KING",
-    "MANN" : "MANN%20FILTER",
+    "MANN" : "MANN-FILTER",
     "MARS" : "MARS",
+    "MAIS" : "RENAULT",
     "MEHA" : "MEHA",
     "MİBA" : "MIBA",
     "TRSN" : "TIRSAN",
@@ -256,6 +258,7 @@ brand_replacement = {
     "OPEL" : "OPEL",
     "SWAG" : "SWAG",
     "AIS" : "AISIN",
+    "ASP" : "ASPOCK",
     "FOR" : "FORD",
     "AYF" : "AYFAR",
     "GMB" : "GMB",
@@ -264,6 +267,7 @@ brand_replacement = {
     "BER" : "BERU",
     "BIL" : "BILSTEIN",
     "BLU" : "BLUE%20PRINT",
+    "BLP" : "BLUE%20PRINT",
     "BOS" : "BOSCH",
     "BSH" : "BOSCH",
     "BMW" : "BMW",
@@ -302,18 +306,24 @@ brand_replacement = {
     "GKN" : "GKN",
     "GLY" : "GLYCO",
     "GTS" : "GATES",
+    "GSP" : "GSP",
     "GVA" : "GVA",
+    "KSC" : "KOLBENSCHMIDT",
     "HEL" : "HELLA",
     "REMSA" : "REMSA",
+    "HOL" : "HOLSET",
     "HLL" : "HELLA",
     "HNG" : "HENGST",
     "INA" : "INA",
     "KOL" : "KOLBENSCHMIDT",
+    "KNG" : "KONGSBERG",
     "LEM" : "LEMFORDER",
     "LMF" : "LEMFORDER",
     "MAH" : "MAHLE",
     "MAI" : "RENAULT",
-    "MAN" : "MANDO",
+    "MAN" : "MANN-FILTER",
+    "MAY" : "MAYSAN%20MANDO",
+    "MER" : "MERCEDES-BENZ",
     "MHL" : "MAHLE",
     "MON" : "MONROE",
     "MTA" : "MTA",
@@ -341,17 +351,20 @@ brand_replacement = {
     "SNR" : "SNR",
     "SWG" : "SWAG",
     "TEK" : "TEKNOROT",
+    "TPR" : "TOPRAN",
     "TRW" : "TRW",
     "VAL" : "VALEO",
     "VCT" : "VICTOR%20REINZ",
     "VER" : "VERNET",
     "VIK" : "VIKA",
     "YEN" : "YENMAK",
+    "DAF" : "DAF",
     "DYC" : "DAYCO",
     "FAE" : "FAE",
     "FAG" : "FAG",
     "FRJ" : "FIAT",
     "KRF" : "KRAFTVOLL",
+    "KSC" : "KOLBENSCHMIDT",
     "LPR" : "LPR",
     "FMN" : "FMN",
     "FSE" : "FASE",
@@ -360,11 +373,14 @@ brand_replacement = {
     "KLR" : "KALE",
     "KAL" : "KALE",
     "KYB" : "KYB",
+    "KNG" : "KONGSBERG",
     "LUK" : "LUK",
     "MGA" : "AUTOMEGA",
     "MMA" : "MAGNETI%20MARELLI",
     "MND" : "MANDO",
     "MNN" : "MANN-FILTER",
+    "MAP" : "MAPA",
+    "MER" : "MERCEDES-BENZ",
     "MKS" : "MKS",
     "MGA" : "MGA",
     "NRF" : "NRF",
@@ -379,12 +395,13 @@ brand_replacement = {
     "PEU" : "PEUGEOT%20CITROEN",
     "PRB" : "PIERBURG",
     "PRG" : "PIERBURG",
-    "PSA" : "PSA",
+    "PSA" : "PEUGEOT-CITROEN",
     "CAV" : "CAVO",
     "REN" : "RENAULT",
     "RYL" : "ROYAL",
     "MAR" : "MARS",
     "SKT" : "SKT",
+    "SMP" : "SAMPART",
     "SWF" : "SWF",
     "TXT" : "TEXTAR",
     "TUR" : "TURTEL",
@@ -406,6 +423,7 @@ brand_replacement = {
     "VR" : "VICTOR%20REINZ",
     "LF" : "LEMFORDER",
     "MB" : "MERCEDES%20BENZ",
+    "ZF_" : "LEMFORDER",
     "ZFT" : "ZF"
 }
 
@@ -454,6 +472,7 @@ total_rows = user_row_number
 print(f"Артикулы берем из файла '{Path(wb_path).name}'")
 print(f"Из листа '{active_sheet.name}' в {first_cell}-{last_cell}" )
 print(f"Всего {total_rows} позиций.")
+print(f"Парсим сайт www.dexup.ru")
 print("")
 print(f'{"Позиция".ljust(10):7}{"Артикул".ljust(20):15}{"Марка".ljust(20):15}Наименование')
 
@@ -482,15 +501,17 @@ for row_index, row in enumerate(data):
     original_proiz = ((sht.range(row_index + first_row, 12).value) or "").upper()   # or "" - чтобы не выдавал ошибку из-за None
     original_marka = ((sht.range(row_index + first_row, 13).value) or "").upper()
     #print(f"proiz: {proiz}, marka: {marka}")
+    original_proiz = original_proiz.strip()
+    original_marka = original_marka.strip() 
 
-    
 
     for brand in brand_replacement:
         if brand in raw_art:                        # если марки в артикуле
             new_art = raw_art.replace(brand, "")
             marka = brand_replacement[brand]
             break
-    
+
+
     if original_marka != "":
         marka = original_marka
     elif original_proiz != "":
@@ -522,6 +543,8 @@ for row_index, row in enumerate(data):
     # Вызов функции парсинга страницы dexup
     product_name_dexup, mass_dexup, material_dexup = parse_page_dexup(url_dexup)
 
+    if "MAIS" in raw_art:                           # чтобы марка MAIS на сайте dexup искал по марке RENAULT,
+        marka = "MAIS"                              # а сама марка MAIS осталась в пакинге.
     
     
     # Приведение данных к корректному регистру
