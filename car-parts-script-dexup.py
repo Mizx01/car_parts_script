@@ -109,6 +109,7 @@ brand_replacement = {
     "MAHLEKNECHT" : "MAHLE",
     "VICTORREINZ" : "VICTOR%20REINZ",
     "VİCTORREİNZ" : "VICTOR%20REINZ",
+    "SACHS YEREL" : "SACHS",
     "BLUE PRINT" : "Blue%20Print",
     "ERENBALATA" : "EREN%20BALATA",
     "HERTH+BUSS" : "H%2BB%20JAKOPARTS",
