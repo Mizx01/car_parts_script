@@ -224,6 +224,7 @@ brand_replacement = {
     "RAPRO" : "RAPRO",
     "REINZ" : "VICTOR%20REINZ",
     "SACHS" : "SACHS",
+    "VADEN" : "VADEN",
     "VALEO" : "VALEO",
     "VOLVO" : "VOLVO",
     "WABCO" : "WABCO",
