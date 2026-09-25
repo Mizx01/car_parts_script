@@ -1095,6 +1095,7 @@ brand_replacement = {
     "KING" : "KING",
     "MANN" : "MANN-FILTER",
     "MARS" : "MARS",
+    "MAPA" : "MAPA",
     "MAIS" : "RENAULT",
     "MEHA" : "MEHA",
     "MİBA" : "MIBA",
@@ -1415,7 +1416,7 @@ for row_index, row in enumerate(data):
             f'{raw_article_for_print.ljust(20):15}'
             f'{"".ljust(20):15}'
             f'{"".ljust(12):12}'
-            f'ПРОПУЩЕНО: в D уже есть нормальное наименование'
+            f'ПРОПУЩЕНО: в D уже есть наименование'
         )
         continue
 
@@ -1639,7 +1640,7 @@ else:
 
 print(f"В базу данных добавлено записей: {db_inserted_count}")
 print(
-    f"Пропущено строк, где в D уже было нормальное наименование: "
+    f"Пропущено строк: "
     f"{skipped_existing_name_count}"
 )
 print(f"База данных: {DATABASE_PATH}")
